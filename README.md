@@ -1,3 +1,33 @@
+## My steps to setup the project
+1. ng new groceryshop to create angular app
+2. ng serve -o
+3. remove app.component.html content
+4. ng g c inventory
+5. ng g c cart
+
+## Send data from Parent to Child
+Parent Component <app-cart>
+productItems -> array of products to be sent to child
+
+Child Component <app-inventory [receivedProductItems]="productItems">
+@Input receivedProductItems: string; -> List of products, static, pass from app-cart
+
+## Send data from Child to Parent
+Parent Component <app-cart>
+receivedChildMessage -> message received from child
+getMessage(message: string) {
+    this.receivedChildMessage = message;
+  }
+
+Child Component <app-inventory (messageToEmit)="getMessage($event)">
+@Output() messageToEmit = new EventEmitter<string>();
+<button (click)="sendMessageToParent(messageToSendC)">Send to Parent</button>
+sendMessageToParent(message: string) {
+    this.messageToEmit.emit(message)
+}
+
+
+
 # Groceryshop2
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.1.
